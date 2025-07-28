@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\dev\barnsley_fern_ffi\plugins\c_plugin\src\c_plugin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\dev\barnsley_fern_ffi\plugins\c_plugin\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{95BA4BD7-1CB4-3DB7-9F67-B22B17574BAF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

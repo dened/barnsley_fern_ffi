@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/dev/barnsley_fern_ffi/plugins/c_plugin/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

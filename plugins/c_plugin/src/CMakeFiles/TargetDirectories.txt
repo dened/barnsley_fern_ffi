@@ -1,0 +1,3 @@
+D:/dev/barnsley_fern_ffi/plugins/c_plugin/src/CMakeFiles/c_plugin.dir
+D:/dev/barnsley_fern_ffi/plugins/c_plugin/src/CMakeFiles/ALL_BUILD.dir
+D:/dev/barnsley_fern_ffi/plugins/c_plugin/src/CMakeFiles/ZERO_CHECK.dir
