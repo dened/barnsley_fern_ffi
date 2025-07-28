@@ -6,6 +6,8 @@ This is a Flutter project created to demonstrate the use of Dart's Foreign Funct
 
 The project showcases how to integrate native C code with a Flutter application. It implements the [Barnsley Fern](https://en.wikipedia.org/wiki/Barnsley_fern) fractal generation algorithm.
 
+![](.img/demo.png)
+
 The project is split into two main parts:
 
 1.  **Native C Code (`/plugins/c_plugin/src`)**:

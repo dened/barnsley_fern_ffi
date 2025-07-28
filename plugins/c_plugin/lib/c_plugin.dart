@@ -1,8 +1,10 @@
-
 import 'dart:async';
-import 'dart:ffi';
+import 'dart:ffi' as ffi;
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:ui';
+
+import 'package:ffi/ffi.dart';
 
 import 'c_plugin_bindings_generated.dart';
 
@@ -33,25 +35,44 @@ Future<int> sumAsync(int a, int b) async {
   return completer.future;
 }
 
+List<Offset> barnsleyFern(int numPoints) {
+  // Выделяем память под `numPoints` элементов Point
+  final ptr = calloc<Point>(numPoints);
+
+  // Вызываем нативную функцию
+  _bindings.barnsley_fern(numPoints, ptr);
+
+  // Копируем результат в Dart-массив
+  final points = <Offset>[];
+  for (var i = 0; i < numPoints; i++) {
+    final p = ptr[i];
+    points.add(Offset(p.x, p.y));
+  }
+
+  // Освобождаем память
+  calloc.free(ptr);
+
+  return points;
+}
+
 const String _libName = 'c_plugin';
 
 /// The dynamic library in which the symbols for [CPluginBindings] can be found.
-final DynamicLibrary _dylib = () {
+final ffi.DynamicLibrary _dylib = () {
   if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
+    return ffi.DynamicLibrary.open('$_libName.framework/$_libName');
   }
   if (Platform.isAndroid || Platform.isLinux) {
-    return DynamicLibrary.open('lib$_libName.so');
+    return ffi.DynamicLibrary.open('lib$_libName.so');
   }
   if (Platform.isWindows) {
-    return DynamicLibrary.open('$_libName.dll');
+    return ffi.DynamicLibrary.open('$_libName.dll');
   }
   throw UnsupportedError('Unknown platform: ${Platform.operatingSystem}');
 }();
 
 /// The bindings to the native functions in [_dylib].
 final CPluginBindings _bindings = CPluginBindings(_dylib);
-
 
 /// A request to compute `sum`.
 ///

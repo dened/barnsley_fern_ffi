@@ -26,6 +26,21 @@ class CPluginBindings {
     ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
   ) : _lookup = lookup;
 
+  /// Генерирует точки для папоротника Барнсли.
+  ///
+  /// Вызывающая сторона (Dart) отвечает за выделение памяти для `points`.
+  /// `num_points` указывает, сколько точек нужно сгенерировать.
+  void barnsley_fern(int num_points, ffi.Pointer<Point> points) {
+    return _barnsley_fern(num_points, points);
+  }
+
+  late final _barnsley_fernPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<Point>)>
+      >('barnsley_fern');
+  late final _barnsley_fern = _barnsley_fernPtr
+      .asFunction<void Function(int, ffi.Pointer<Point>)>();
+
   /// A very short-lived native function.
   ///
   /// For very short-lived functions, it is fine to call them on the main isolate.
@@ -54,4 +69,15 @@ class CPluginBindings {
       );
   late final _sum_long_running = _sum_long_runningPtr
       .asFunction<int Function(int, int)>();
+}
+
+/// Структура для хранения 2D-точки.
+/// Она должна быть выровнена по 8 байт для Dart FFI.
+/// Использование `double` для координат обеспечивает точность и правильное выравнивание.
+final class Point extends ffi.Struct {
+  @ffi.Double()
+  external double x;
+
+  @ffi.Double()
+  external double y;
 }

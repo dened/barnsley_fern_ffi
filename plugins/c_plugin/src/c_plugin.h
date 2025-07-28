@@ -15,6 +15,20 @@
 #define FFI_PLUGIN_EXPORT
 #endif
 
+// Структура для хранения 2D-точки.
+// Она должна быть выровнена по 8 байт для Dart FFI.
+// Использование `double` для координат обеспечивает точность и правильное выравнивание.
+typedef struct {
+    double x;
+    double y;
+} Point;
+
+// Генерирует точки для папоротника Барнсли.
+//
+// Вызывающая сторона (Dart) отвечает за выделение памяти для `points`.
+// `num_points` указывает, сколько точек нужно сгенерировать.
+FFI_PLUGIN_EXPORT void barnsley_fern(int num_points, Point* points);
+
 // A very short-lived native function.
 //
 // For very short-lived functions, it is fine to call them on the main isolate.
